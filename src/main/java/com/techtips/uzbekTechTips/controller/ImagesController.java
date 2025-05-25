@@ -69,7 +69,8 @@ public class ImagesController {
     @PostMapping("/upload")
     public String uploadImage(@RequestParam("file") MultipartFile file){
         try{
-            return imageUploadService.uploadImage(file);
+            String savedFileName = imageUploadService.uploadImage(file);
+            return savedFileName;
         }
         catch(Exception e){
             e.printStackTrace();

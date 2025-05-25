@@ -44,8 +44,8 @@ public class ImageUploadService {
         }
 
         
-
-        return "https://s3.ap-southeast-1.wasabisys.com/" + bucketName + "/" + fileName;
+        //"https://s3.ap-southeast-1.wasabisys.com/" + bucketName + "/" + 
+        return fileName;
     }
 
     public void saveImageUrl(String imageName) {
