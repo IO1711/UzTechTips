@@ -17,7 +17,10 @@ import com.techtips.uzbekTechTips.model.Topics;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {
+    "https://techtipsuzbcreator.netlify.app",
+    "https://techtipsuzb.netlify.app"
+})
 @RestController
 @RequestMapping("/api")
 public class GetController {
