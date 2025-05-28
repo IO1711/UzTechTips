@@ -19,7 +19,8 @@ import java.util.List;
 
 @CrossOrigin(origins = {
     "https://techtipsuzbcreator.netlify.app",
-    "https://techtipsuzb.netlify.app"
+    "https://techtipsuzb.netlify.app",
+    "http://localhost:3000"
 })
 @RestController
 @RequestMapping("/api")
