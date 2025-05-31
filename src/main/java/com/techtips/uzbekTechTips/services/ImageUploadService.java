@@ -13,6 +13,8 @@ import com.techtips.uzbekTechTips.repositories.ImageWassabiRepository;
 
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 
 
 @Service
@@ -53,6 +55,22 @@ public class ImageUploadService {
         ImageWassabi image = new ImageWassabi();
         image.setContent(imageName);
         imageWassabiRepository.save(image);
+    }
+
+    public void deleteImage(String imageName){
+        try{
+            DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+                .bucket(bucketName)
+                .key(imageName)
+                .build();
+
+                s3Client.deleteObject(deleteObjectRequest);
+                System.out.println("Deleted: " + imageName);
+        }
+        catch(S3Exception e){
+            System.err.println("Failed to delete file: " + imageName);
+            System.err.println(e.awsErrorDetails().errorMessage());
+        }
     }
     
 }

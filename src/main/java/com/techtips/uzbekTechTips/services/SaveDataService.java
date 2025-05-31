@@ -43,6 +43,13 @@ public class SaveDataService {
     private TextRepository textRepository;
     @Autowired
     private ImageWassabiRepository imageWassabiRepository;
+    
+    private final ImageUploadService imageUploadService;
+
+    @Autowired
+    public SaveDataService(ImageUploadService imageUploadService){
+        this.imageUploadService = imageUploadService;
+    }
 
 
     @Transactional
@@ -102,6 +109,32 @@ public class SaveDataService {
             
         }
 
+        return "success";
+    }
+
+    @Transactional
+    public String deleteTopicContent(List<AddDataDTO> addDataDTOs){
+        Apps app = appsRepository.findByAppName(addDataDTOs.get(0).getAppName());
+        Topics topic = topicsRepository.findByTopicNameAndAppName(addDataDTOs.get(0).getTopicName(), app);
+
+        List<Data> topicData = dataRepository.findByTopicNameId(topic.getId());
+
+        for(Data data : topicData){
+            if("TABLE".equals(data.getDataType())){
+                TableDoc table = tableRepository.findByDataTypeId(data.getId());
+                tableRepository.delete(table);
+            } else if("TEXT".equals(data.getDataType())){
+                Text text = textRepository.findByDataTypeId(data.getId());
+                textRepository.delete(text);
+            } else if("LIST".equals(data.getDataType())){
+                ListDoc list = listDocRepository.findByDataTypeId(data.getId());
+                listDocRepository.delete(list);
+            } else if("IMAGE".equals(data.getDataType())){
+                ImageWassabi img = imageWassabiRepository.findByDataTypeId(data.getId());
+                imageUploadService.deleteImage(img.getContent());
+                imageWassabiRepository.delete(img);
+            }
+        }
         return "success";
     }
 }
