@@ -2,7 +2,9 @@ package com.techtips.uzbekTechTips.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,5 +65,38 @@ public class InputController {
     @PostMapping("/v1/addData")
     public String saveData(@RequestBody List<AddDataDTO> addDataDTO){
         return saveDataService.addData(addDataDTO);
+    }
+
+
+    /*
+     * [{
+     *  "appName" : "sampleApp",
+     *  "topicName" : "sampleName",
+     *  "dataType" : "sampleData",
+     *  "orderNumber" : 1,
+     *  "data" : {"content" : "sampleContent", "rowNumber" : 1, "columnNumber" : 1}
+     * }]
+     */
+    @PutMapping("/v1/editTopicData")
+    public String editContentData(@RequestBody List<AddDataDTO> addDataDTOs){
+        saveDataService.deleteTopicContent(addDataDTOs.get(0).getAppName(), addDataDTOs.get(0).getTopicName());
+        return saveDataService.addData(addDataDTOs);
+    }
+
+
+
+    /*
+     * {
+     *  "app" : {
+     *              "appName" : "sampleName"
+     *          },
+     *  "topic" : {
+     *              "topicName" : "sampleName"
+     *              }
+     * }
+     */
+    @DeleteMapping("/v1/deleteTopic")
+    public String deleteTopic(@RequestBody AddTopicDTO addTopicDTO){
+        return saveDataService.deleteTopic(addTopicDTO.getApp(), addTopicDTO.getTopic());
     }
 }

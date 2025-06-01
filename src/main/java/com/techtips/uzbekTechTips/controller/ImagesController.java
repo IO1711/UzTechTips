@@ -83,5 +83,12 @@ public class ImagesController {
     }
 
 
+    @PostMapping("/delete/{imageName}")
+    public String deleteImage(@PathVariable String imageName){
+        imageUploadService.deleteImage(imageName);
+        return "Deleted: " + imageName;
+    }
+
+
     
 }

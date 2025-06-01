@@ -112,10 +112,30 @@ public class SaveDataService {
         return "success";
     }
 
+
+
+
+
     @Transactional
-    public String deleteTopicContent(List<AddDataDTO> addDataDTOs){
-        Apps app = appsRepository.findByAppName(addDataDTOs.get(0).getAppName());
-        Topics topic = topicsRepository.findByTopicNameAndAppName(addDataDTOs.get(0).getTopicName(), app);
+    public String deleteTopic(Apps app, Topics topic){
+        Apps parentApp = appsRepository.findByAppName(app.getAppName());
+        deleteTopicContent(app.getAppName(), topic.getTopicName());
+
+        Topics topicToDelete = topicsRepository.findByTopicNameAndAppName(topic.getTopicName(), parentApp);
+
+        topicsRepository.delete(topicToDelete);
+        
+        return "Deleted topic: " + topic.getTopicName() + " of the app " + app.getAppName();
+    }
+
+
+
+
+
+    @Transactional
+    public String deleteTopicContent(String appReceived, String topicReceived){
+        Apps app = appsRepository.findByAppName(appReceived);
+        Topics topic = topicsRepository.findByTopicNameAndAppName(topicReceived, app);
 
         List<Data> topicData = dataRepository.findByTopicNameId(topic.getId());
 
@@ -134,6 +154,8 @@ public class SaveDataService {
                 imageUploadService.deleteImage(img.getContent());
                 imageWassabiRepository.delete(img);
             }
+
+            dataRepository.delete(data);
         }
         return "success";
     }
