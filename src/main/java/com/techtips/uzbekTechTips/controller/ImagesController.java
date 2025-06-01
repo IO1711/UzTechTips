@@ -27,7 +27,8 @@ import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 @CrossOrigin(origins = {
     "https://techtipsuzbcreator.netlify.app",
     "https://techtipsuzb.netlify.app",
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "http://localhost:5173"
 })
 @RestController
 @RequestMapping("/api/images")
