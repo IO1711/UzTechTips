@@ -112,6 +112,19 @@ public class SaveDataService {
         return "success";
     }
 
+    @Transactional
+    public String deletApp(Apps app){
+        List<Topics> appTopics = topicsRepository.findByAppNameId(app.getId());
+
+        for(Topics topic : appTopics){
+            deleteTopic(app, topic);
+        }
+
+        appsRepository.delete(app);
+        
+        return "success";
+    }
+
 
 
 

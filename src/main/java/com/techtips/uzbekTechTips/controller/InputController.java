@@ -100,4 +100,12 @@ public class InputController {
     public String deleteTopic(@RequestBody AddTopicDTO addTopicDTO){
         return saveDataService.deleteTopic(addTopicDTO.getApp(), addTopicDTO.getTopic());
     }
+
+    /*
+     * {"appName" : "samplename"}
+     */
+    @DeleteMapping("/v1/deleteApp")
+    public String deleteApp(@RequestBody Apps app){
+        return saveDataService.deletApp(app);
+    }
 }
