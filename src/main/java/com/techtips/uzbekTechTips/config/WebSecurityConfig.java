@@ -32,6 +32,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
         .csrf(customize -> customize.disable())
+        .cors(Customizer.withDefaults())
         .authorizeHttpRequests(requests -> requests
                                         .requestMatchers("/api/v1/register", "/api/v1/login", "/api/v1/deleteAll").permitAll()
                                         .anyRequest().authenticated()
