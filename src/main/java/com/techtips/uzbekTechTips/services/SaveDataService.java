@@ -114,13 +114,17 @@ public class SaveDataService {
 
     @Transactional
     public String deletApp(Apps app){
-        List<Topics> appTopics = topicsRepository.findByAppNameId(app.getId());
+        /*List<Topics> appTopics = topicsRepository.findByAppNameId(app.getId());
 
         for(Topics topic : appTopics){
             deleteTopic(app, topic);
-        }
+        }*/
 
-        appsRepository.delete(app);
+        Apps app1 = appsRepository.findById(52);
+        Apps app2 = appsRepository.findById(53);
+
+        appsRepository.delete(app1);
+        appsRepository.delete(app2);
         
         return "success";
     }

@@ -7,4 +7,6 @@ import com.techtips.uzbekTechTips.model.Apps;
 public interface AppsRepository extends JpaRepository<Apps, Long> {
 
     Apps findByAppName(String app);
+
+    Apps findById(long id);
 }
