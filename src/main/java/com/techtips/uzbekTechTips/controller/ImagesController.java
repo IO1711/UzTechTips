@@ -49,7 +49,7 @@ public class ImagesController {
     }
 
 
-    @GetMapping("/{fileName}")
+    @GetMapping("/getImage/{fileName}")
     public ResponseEntity<Resource> getImage(@PathVariable String fileName) {
 
         GetObjectRequest getObjectRequest = GetObjectRequest.builder()
