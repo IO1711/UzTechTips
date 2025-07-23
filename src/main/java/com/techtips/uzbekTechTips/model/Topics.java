@@ -1,6 +1,8 @@
 package com.techtips.uzbekTechTips.model;
 
 
+import java.util.Objects;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -22,6 +24,8 @@ public class Topics {
     private long id;
 
     private String topicName;
+
+    private Users creator;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "app_id", nullable = false)
@@ -46,6 +50,14 @@ public class Topics {
         this.topicName = topicName;
     }
 
+    public Users getCreator(){
+        return this.creator;
+    }
+
+    public void setCreator(Users creator){
+        this.creator = creator;
+    }
+
     public Apps getAppName() {
         return this.appName;
     }
@@ -54,12 +66,27 @@ public class Topics {
         this.appName = appName;
     }
 
+    @Override
+    public boolean equals(Object o){
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+        Topics topic = (Topics) o;
+        return Objects.equals(appName, topic.getAppName()) &&
+                Objects.equals(topicName, topic.getTopicName());
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(topicName, appName);
+    }
+
 
     @Override
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
             ", topicName='" + getTopicName() + "'" +
+            ", creator='" + getCreator() + "'" +
             ", appName='" + getAppName() + "'" +
             "}";
     }

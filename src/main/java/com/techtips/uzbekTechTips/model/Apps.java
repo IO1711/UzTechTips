@@ -1,5 +1,7 @@
 package com.techtips.uzbekTechTips.model;
 
+import java.util.Objects;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,6 +31,22 @@ public class Apps {
 
     public void setAppName(String appName) {
         this.appName = appName;
+    }
+    
+
+    @Override
+    public boolean equals(Object o){
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+
+        Apps app = (Apps) o;
+
+        return Objects.equals(appName, app.appName);
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(appName);
     }
 
     

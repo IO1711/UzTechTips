@@ -80,8 +80,7 @@ public class InputController {
      */
     @PutMapping("/v1/editTopicData")
     public String editContentData(@RequestBody List<AddDataDTO> addDataDTOs){
-        saveDataService.deleteTopicContent(addDataDTOs.get(0).getAppName(), addDataDTOs.get(0).getTopicName());
-        return saveDataService.addData(addDataDTOs);
+        return saveDataService.editTopic(addDataDTOs);
     }
 
 

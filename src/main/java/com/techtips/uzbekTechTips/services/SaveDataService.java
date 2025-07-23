@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.techtips.uzbekTechTips.DTO.AddDataDTO;
+
 import com.techtips.uzbekTechTips.model.Apps;
 import com.techtips.uzbekTechTips.model.Data;
 import com.techtips.uzbekTechTips.model.ImageWassabi;
@@ -54,6 +55,12 @@ public class SaveDataService {
 
     @Transactional
     public String addApp(Apps app){
+        List<Apps> existingApps = appsRepository.findAll();
+
+        if(existingApps.contains(app)){
+            return "fail";
+        }
+
         appsRepository.save(app);
 
         return "success";
@@ -113,18 +120,28 @@ public class SaveDataService {
     }
 
     @Transactional
+    public String editTopic(List<AddDataDTO> addDataDTOs){
+
+        Apps currentApp = appsRepository.findByAppName(addDataDTOs.get(0).getAppName());
+        Topics currentTopic = topicsRepository.findByTopicNameAndAppName(addDataDTOs.get(0).getTopicName(), currentApp);
+
+        deleteTopicContent(currentApp.getAppName(), currentTopic.getTopicName());
+
+        addData(addDataDTOs);
+
+        return "success";
+
+    }
+
+    @Transactional
     public String deletApp(Apps app){
-        /*List<Topics> appTopics = topicsRepository.findByAppNameId(app.getId());
+        List<Topics> appTopics = topicsRepository.findByAppNameId(app.getId());
 
         for(Topics topic : appTopics){
             deleteTopic(app, topic);
-        }*/
+        }
 
-        Apps app1 = appsRepository.findById(52);
-        Apps app2 = appsRepository.findById(53);
-
-        appsRepository.delete(app1);
-        appsRepository.delete(app2);
+        appsRepository.delete(app);
         
         return "success";
     }
