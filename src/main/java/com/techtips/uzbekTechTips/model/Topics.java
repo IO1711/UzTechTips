@@ -25,6 +25,8 @@ public class Topics {
 
     private String topicName;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "creator_id")
     private Users creator;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
