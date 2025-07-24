@@ -24,13 +24,13 @@ import java.util.List;
     "http://localhost:5173"
 })
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/")
 public class GetController {
 
     @Autowired
     private GetDataService getDataService;
 
-    @GetMapping("/v1/getApps")
+    @GetMapping("getApps")
     public List<Apps> getApps(){
         return getDataService.getAllApps();
     }
@@ -39,7 +39,7 @@ public class GetController {
     /*
      * {"appName" : "samplename"}
      */
-    @PostMapping("/v1/getAppTopics")
+    @PostMapping("getAppTopics")
     public List<Topics> getAppTopics(@RequestBody Apps app){
         return getDataService.getTopicsForApp(app);
     }
@@ -55,10 +55,16 @@ public class GetController {
      *              }
      * }
      */
-    @PostMapping("/v1/getTopicContent")
+    @PostMapping("getTopicContent")
     public List<TopicContentDTO> getTopicContent(@RequestBody AddTopicDTO addTopicDTO){
         return getDataService.getTopicContent(addTopicDTO.getApp(), addTopicDTO.getTopic());
     }
+
+
+    /*@PostMapping("getCreatorTopics")
+    public List<Topics> getCReatorTopics(){
+        
+    }*/
 
     
 }

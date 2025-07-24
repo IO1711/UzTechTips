@@ -11,4 +11,5 @@ public interface TopicsRepository extends JpaRepository<Topics, Long>{
     List<Topics> findByAppNameId(long id);
     Topics findByTopicName(String topicNAme);
     Topics findByTopicNameAndAppName(String topicName, Apps appName);
+    List<Topics> findByCreator(String creator);
 }

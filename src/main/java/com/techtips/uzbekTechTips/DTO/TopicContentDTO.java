@@ -6,12 +6,12 @@ public class TopicContentDTO {
 
     private int orderNumber;
 
-    private Object content;
+    private Object data;
 
-    public TopicContentDTO(String dataType, int orderNumber, Object content){
+    public TopicContentDTO(String dataType, int orderNumber, Object data){
         this.dataType = dataType;
         this.orderNumber = orderNumber;
-        this.content = content;
+        this.data = data;
     }
 
 
@@ -32,11 +32,11 @@ public class TopicContentDTO {
     }
 
     public Object getContent() {
-        return this.content;
+        return this.data;
     }
 
-    public void setContent(Object content) {
-        this.content = content;
+    public void setContent(Object data) {
+        this.data = data;
     }
 
 }
