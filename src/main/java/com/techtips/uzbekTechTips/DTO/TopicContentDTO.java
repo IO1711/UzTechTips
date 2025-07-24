@@ -31,11 +31,11 @@ public class TopicContentDTO {
         this.orderNumber = orderNumber;
     }
 
-    public Object getContent() {
+    public Object getData() {
         return this.data;
     }
 
-    public void setContent(Object data) {
+    public void setData(Object data) {
         this.data = data;
     }
 
