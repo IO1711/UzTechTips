@@ -104,9 +104,9 @@ public class GetDataService {
         for(Data topicData : topicDataList){
             Function <Long, Object> fetchFn = fetchMap.get(topicData.getDataType());
 
-            Object content = fetchFn.apply(topicData.getId());
+            Object data = fetchFn.apply(topicData.getId());
 
-            topicContent.add(new TopicContentDTO(topicData.getDataType(), topicData.getOrderNumber(), content));
+            topicContent.add(new TopicContentDTO(topicData.getDataType(), topicData.getOrderNumber(), data));
         }
 
         
