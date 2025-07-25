@@ -1,6 +1,7 @@
 package com.techtips.uzbekTechTips.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import com.techtips.uzbekTechTips.DTO.AddTopicDTO;
 import com.techtips.uzbekTechTips.DTO.TopicContentDTO;
 import com.techtips.uzbekTechTips.model.Apps;
 import com.techtips.uzbekTechTips.model.Topics;
+import com.techtips.uzbekTechTips.model.Users;
 
 import java.util.List;
 
@@ -65,6 +67,11 @@ public class GetController {
     public List<Topics> getCReatorTopics(){
         
     }*/
+
+    @GetMapping("getUserDetails")
+    public Users getUserDetails(){
+        return getDataService.getUserDetails();
+    }
 
     
 }

@@ -1,6 +1,11 @@
 package com.techtips.uzbekTechTips.services;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.techtips.uzbekTechTips.DTO.TopicContentDTO;
@@ -12,6 +17,7 @@ import com.techtips.uzbekTechTips.repositories.ListDocRepository;
 import com.techtips.uzbekTechTips.repositories.TableRepository;
 import com.techtips.uzbekTechTips.repositories.TextRepository;
 import com.techtips.uzbekTechTips.repositories.TopicsRepository;
+import com.techtips.uzbekTechTips.repositories.UsersRepository;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -39,6 +45,9 @@ public class GetDataService {
     private ImageWassabiRepository imageWassabiRepository;
 
     private final Map<String, Function<Long, Object>> fetchMap = new HashMap<>();
+
+    @Autowired
+    private UsersRepository usersRepository;
 
 
     public GetDataService(
@@ -112,6 +121,19 @@ public class GetDataService {
         
 
         return topicContent;
+    }
+
+
+
+
+
+
+    public Users getUserDetails() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Users user = usersRepository.findByUsername(username);
+
+        return user;
     }
 
 }

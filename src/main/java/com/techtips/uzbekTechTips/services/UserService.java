@@ -26,9 +26,10 @@ public class UserService {
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
 
-    public Users register(Users user){
+    public String register(Users user){
         user.setPassword(encoder.encode(user.getPassword()));
-        return usersRepo.save(user);
+        usersRepo.save(user);
+        return user.toString();
     }
 
     public String deleteAll(){
