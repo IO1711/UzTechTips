@@ -1,6 +1,8 @@
 package com.techtips.uzbekTechTips.controller;
 
 import java.io.InputStream;
+import java.util.Map;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -84,10 +87,10 @@ public class ImagesController {
     }
 
 
-    @PostMapping("/delete/{imageName}")
-    public String deleteImage(@PathVariable String imageName){
-        imageUploadService.deleteImage(imageName);
-        return "Deleted: " + imageName;
+    @PostMapping("/delete")
+    public String deleteImage(@RequestBody Map<String, String> body){
+        imageUploadService.deleteImage(body.get("imageName"));
+        return "Deleted: " + body.get("imageName");
     }
 
 
