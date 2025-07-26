@@ -97,18 +97,22 @@ public class SaveDataService {
 
             if("TABLE".equals(addDataDTO.getDataType())){
                 TableDoc table = (TableDoc) addDataDTO.getData();
+                table.setId(null);
                 table.setDataType(data);
                 tableRepository.save(table);
             } else if("TEXT".equals(addDataDTO.getDataType())){
                 Text text = (Text) addDataDTO.getData();
+                text.setId(null);
                 text.setDataType(data);
                 textRepository.save(text);
             } else if("LIST".equals(addDataDTO.getDataType())){
                 ListDoc list = (ListDoc) addDataDTO.getData();
+                list.setId(null);
                 list.setDataType(data);
                 listDocRepository.save(list);
             } else if("IMAGE".equals(addDataDTO.getDataType())){
                 ImageWassabi img = (ImageWassabi) addDataDTO.getData();
+                img.setId(null);
                 img.setDataType(data);
                 imageWassabiRepository.save(img);
             }

@@ -18,7 +18,7 @@ public class ListDoc {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
+    private Long id;
 
     private String content;
 
@@ -29,11 +29,11 @@ public class ListDoc {
     private Data dataType;
 
 
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
