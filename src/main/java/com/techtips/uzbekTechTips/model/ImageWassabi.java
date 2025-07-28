@@ -1,5 +1,7 @@
 package com.techtips.uzbekTechTips.model;
 
+import java.util.Objects;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -29,6 +31,15 @@ public class ImageWassabi {
     @JsonIgnore
     private Data dataType;
 
+    public ImageWassabi(){
+        
+    }
+
+    public ImageWassabi(String content, Data dataType){
+        this.content = content;
+        this.dataType = dataType;
+    }
+
 
 
     public Long getId() {
@@ -53,6 +64,19 @@ public class ImageWassabi {
 
     public void setDataType(Data dataType) {
         this.dataType = dataType;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+        ImageWassabi imageWassabi = (ImageWassabi) o;
+        return Objects.equals(content, imageWassabi.getContent());
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(content, dataType);
     }
     
     

@@ -1,6 +1,9 @@
 package com.techtips.uzbekTechTips.services;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -129,11 +132,43 @@ public class SaveDataService {
         Apps currentApp = appsRepository.findByAppName(addDataDTOs.get(0).getAppName());
         Topics currentTopic = topicsRepository.findByTopicNameAndAppName(addDataDTOs.get(0).getTopicName(), currentApp);
 
+        List<Data> allDataImages = dataRepository.findByTopicNameId(currentTopic.getId())
+            .stream()
+            .filter(data -> "IMAGE".equals(data.getDataType()))
+            .collect(Collectors.toList());
+
+        List<ImageWassabi> allImages = new ArrayList<>();
+
+        for(Data image : allDataImages){
+            allImages.add(imageWassabiRepository.findByDataTypeId(image.getId()));
+        }
+
+        List<ImageWassabi> newImages = new ArrayList<>();
+
+        for(AddDataDTO addDataDTO : addDataDTOs){
+            if("IMAGE".equals(addDataDTO.getDataType())){
+                ImageWassabi tempImage = (ImageWassabi) addDataDTO.getData();
+                newImages.add(tempImage);
+            }
+        }
+
+        Set<String> newImageContents = newImages.stream()
+            .map(ImageWassabi::getContent)
+            .collect(Collectors.toSet());
+        
+        allImages.removeIf(img -> newImageContents.contains(img.getContent()));
+
+        for(ImageWassabi imageToDelete : allImages){
+            imageUploadService.deleteImage(imageToDelete.getContent());
+        }
+
+
+
         deleteTopicContent(currentApp.getAppName(), currentTopic.getTopicName());
 
         addData(addDataDTOs);
 
-        return "success";
+        return "success" + allImages + " ; New Images: " + newImages;
 
     }
 
@@ -189,7 +224,6 @@ public class SaveDataService {
                 listDocRepository.delete(list);
             } else if("IMAGE".equals(data.getDataType())){
                 ImageWassabi img = imageWassabiRepository.findByDataTypeId(data.getId());
-                imageUploadService.deleteImage(img.getContent());
                 imageWassabiRepository.delete(img);
             }
 

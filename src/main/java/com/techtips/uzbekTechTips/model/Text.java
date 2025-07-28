@@ -1,5 +1,7 @@
 package com.techtips.uzbekTechTips.model;
 
+import java.util.Objects;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -51,6 +53,20 @@ public class Text {
 
     public void setDataType(Data dataType) {
         this.dataType = dataType;
+    }
+    
+
+    @Override
+    public boolean equals(Object o){
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+        Text text = (Text) o;
+        return Objects.equals(content, text.getContent());
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(content, dataType);
     }
 
 
