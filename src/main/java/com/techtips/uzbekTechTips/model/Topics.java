@@ -27,6 +27,7 @@ public class Topics {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "creator_id")
+    @JsonIgnore
     private Users creator;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
