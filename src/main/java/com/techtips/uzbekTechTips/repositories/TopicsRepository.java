@@ -6,6 +6,7 @@ import com.techtips.uzbekTechTips.model.Apps;
 import com.techtips.uzbekTechTips.model.Topics;
 import com.techtips.uzbekTechTips.model.Users;
 
+
 import java.util.List;
 
 public interface TopicsRepository extends JpaRepository<Topics, Long>{
@@ -13,4 +14,5 @@ public interface TopicsRepository extends JpaRepository<Topics, Long>{
     Topics findByTopicName(String topicNAme);
     Topics findByTopicNameAndAppName(String topicName, Apps appName);
     List<Topics> findByCreator(Users creator);
+    boolean existsByTopicNameAndAppName_AppNameAndCreator_Username(String topicName, String appName, String username);
 }

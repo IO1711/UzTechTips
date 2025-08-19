@@ -6,6 +6,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.techtips.uzbekTechTips.DTO.AddDataDTO;
@@ -17,6 +19,7 @@ import com.techtips.uzbekTechTips.model.ListDoc;
 import com.techtips.uzbekTechTips.model.TableDoc;
 import com.techtips.uzbekTechTips.model.Text;
 import com.techtips.uzbekTechTips.model.Topics;
+import com.techtips.uzbekTechTips.model.Users;
 import com.techtips.uzbekTechTips.repositories.AppsRepository;
 import com.techtips.uzbekTechTips.repositories.DataRepository;
 import com.techtips.uzbekTechTips.repositories.ImageWassabiRepository;
@@ -24,6 +27,7 @@ import com.techtips.uzbekTechTips.repositories.ListDocRepository;
 import com.techtips.uzbekTechTips.repositories.TableRepository;
 import com.techtips.uzbekTechTips.repositories.TextRepository;
 import com.techtips.uzbekTechTips.repositories.TopicsRepository;
+import com.techtips.uzbekTechTips.repositories.UsersRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -47,6 +51,8 @@ public class SaveDataService {
     private TextRepository textRepository;
     @Autowired
     private ImageWassabiRepository imageWassabiRepository;
+    @Autowired
+    private UsersRepository usersRepository;
     
     private final ImageUploadService imageUploadService;
 
@@ -74,6 +80,12 @@ public class SaveDataService {
         Apps currentApp = appsRepository.findByAppName(app.getAppName());
 
         topic.setAppName(currentApp);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        Users currentUser = usersRepository.findByUsername(auth.getName());
+
+        topic.setCreator(currentUser);
 
         topicsRepository.save(topic);
 
@@ -164,9 +176,8 @@ public class SaveDataService {
 
 
 
-        deleteTopicContent(currentApp.getAppName(), currentTopic.getTopicName());
-
-        addData(addDataDTOs);
+        if(deleteTopicContent(currentApp.getAppName(), currentTopic.getTopicName())=="success")
+            addData(addDataDTOs);
 
         return "success" + allImages + " ; New Images: " + newImages;
 
