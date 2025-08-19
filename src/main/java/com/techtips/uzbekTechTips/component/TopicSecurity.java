@@ -6,9 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import com.techtips.uzbekTechTips.DTO.AddDataDTO;
-import com.techtips.uzbekTechTips.model.Apps;
-import com.techtips.uzbekTechTips.model.Topics;
-import com.techtips.uzbekTechTips.repositories.AppsRepository;
+
 import com.techtips.uzbekTechTips.repositories.TopicsRepository;
 
 import jakarta.transaction.Transactional;
@@ -18,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TopicSecurity {
 
-    private TopicsRepository topicsRepository;
+    private final TopicsRepository topicsRepository;
 
     
 
