@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.techtips.uzbekTechTips.DTO.PreFetchTopicsDTO;
 import com.techtips.uzbekTechTips.DTO.TopicContentDTO;
 import com.techtips.uzbekTechTips.model.*;
 import com.techtips.uzbekTechTips.repositories.AppsRepository;
@@ -134,6 +135,24 @@ public class GetDataService {
         Users user = usersRepository.findByUsername(username);
 
         return user;
+    }
+
+
+
+
+
+
+    public List<PreFetchTopicsDTO> getAllTopics() {
+        List<Topics> allTopics = topicsRepository.findAll();
+
+        List<PreFetchTopicsDTO> topicsToReturn = new ArrayList<>();
+
+        for(Topics topic : allTopics){
+            PreFetchTopicsDTO topicToAdd = new PreFetchTopicsDTO(topic.getId(), topic.getAppName().getAppName(), topic.getTopicName());
+            topicsToReturn.add(topicToAdd);
+        }
+
+        return topicsToReturn;
     }
 
 }

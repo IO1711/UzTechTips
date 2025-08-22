@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techtips.uzbekTechTips.services.GetDataService;
 import com.techtips.uzbekTechTips.DTO.AddTopicDTO;
+import com.techtips.uzbekTechTips.DTO.PreFetchTopicsDTO;
 import com.techtips.uzbekTechTips.DTO.TopicContentDTO;
 import com.techtips.uzbekTechTips.model.Apps;
 import com.techtips.uzbekTechTips.model.Topics;
@@ -71,6 +72,12 @@ public class GetController {
     @GetMapping("getUserDetails")
     public Users getUserDetails(){
         return getDataService.getUserDetails();
+    }
+
+
+    @GetMapping("getAllTopics")
+    public List<PreFetchTopicsDTO> getAllTopics(){
+        return getDataService.getAllTopics();
     }
 
     

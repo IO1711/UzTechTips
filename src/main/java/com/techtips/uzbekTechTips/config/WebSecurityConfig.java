@@ -37,7 +37,7 @@ public class WebSecurityConfig {
         .cors(Customizer.withDefaults())
         .authorizeHttpRequests(requests -> requests
                                         .requestMatchers("/api/v1/register", "/api/v1/login", "api/images/getImage/**").permitAll()
-                                        .requestMatchers("/api/v1/getApps", "/api/v1/getAppTopics", "/api/v1/getTopicContent").permitAll()
+                                        .requestMatchers("/api/v1/getApps", "/api/v1/getAppTopics", "/api/v1/getTopicContent", "/api/v1/getAllTopics").permitAll()
                                         .anyRequest().authenticated()
         )
         .httpBasic(Customizer.withDefaults())
