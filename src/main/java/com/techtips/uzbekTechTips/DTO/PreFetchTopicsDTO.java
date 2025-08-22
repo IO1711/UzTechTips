@@ -14,6 +14,14 @@ public class PreFetchTopicsDTO {
         this.topicName = topicName;
     }
 
+    public long getId(){
+        return this.id;
+    }
+
+    public void setId(long id){
+        this.id = id;
+    }
+
 
     public String getAppName() {
         return this.appName;
