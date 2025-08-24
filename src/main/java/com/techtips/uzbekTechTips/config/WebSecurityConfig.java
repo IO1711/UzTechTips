@@ -15,6 +15,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.techtips.uzbekTechTips.component.JWTFilter;
 import com.techtips.uzbekTechTips.services.MyUserDetailsService;
@@ -60,6 +62,25 @@ public class WebSecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
         return config.getAuthenticationManager();
+    }
+
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer(){
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry corsRegistry){
+                corsRegistry.addMapping("/api/v1/**")
+                    .allowedOrigins(
+                        "https://techtipsuzbcreator.netlify.app",
+                        "https://techtipsuzb.netlify.app",
+                        "https://tech-tips-uzb-front-next.vercel.app",
+                        "http://localhost:3000",
+                        "http://localhost:5173"
+                    )
+                    .allowedMethods("GET", "POST", "PUT", "DELETE");
+            }
+        };
     }
 
 }

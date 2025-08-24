@@ -2,7 +2,7 @@ package com.techtips.uzbekTechTips.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,11 +18,7 @@ import com.techtips.uzbekTechTips.model.Apps;
 
 import java.util.List;
 
-@CrossOrigin(origins = {
-    "https://techtipsuzbcreator.netlify.app",
-    "https://techtipsuzb.netlify.app",
-    "http://localhost:5173"
-})
+
 @RestController
 @RequestMapping("/api")
 public class InputController {
